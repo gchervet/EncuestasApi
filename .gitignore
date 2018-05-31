@@ -1,0 +1,12 @@
+packages
+/EncuestasApi/bin
+/EncuestasApi/obj
+/EncuestasApi_DATA/bin
+/EncuestasApi_DATA/obj
+/EncuestasApi_DATA/Properties
+/EncuestasApi_Domain/Properties
+/EncuestasApi_Domain/bin
+/EncuestasApi_Domain/obj
+/EncuestasApi_Service/obj
+/EncuestasApi_Service/Properties
+/EncuestasApi_Service/bin

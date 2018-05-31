@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UniEncuestaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="uniEncuestaPopup">
+          <Key>
+            <PropertyRef Name="IdEncuesta" />
+          </Key>
+          <Property Name="IdEncuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="uniEncuestaPopupPregunta">
+          <Key>
+            <PropertyRef Name="IdPregunta" />
+          </Key>
+          <Property Name="IdEncuesta" Type="int" Nullable="false" />
+          <Property Name="IdPregunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoPregunta" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="uniEncuestaPopupRespuestaAlumno">
+          <Key>
+            <PropertyRef Name="IdEncuesta" />
+            <PropertyRef Name="IdPregunta" />
+            <PropertyRef Name="Legajo" />
+          </Key>
+          <Property Name="IdEncuesta" Type="int" Nullable="false" />
+          <Property Name="IdPregunta" Type="int" Nullable="false" />
+          <Property Name="Legajo" Type="int" Nullable="false" />
+          <Property Name="RespuestaNumerica" Type="int" />
+          <Property Name="RespuestaTexto" Type="varchar(max)" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uniEncuestaPreguntaTipo">
+          <Key>
+            <PropertyRef Name="idTipoEncuestaPregunta" />
+          </Key>
+          <Property Name="idTipoEncuestaPregunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dev_Uni.dbo.vUniAlumnosUsername' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vUniAlumnosUsername">
+          <Key>
+            <PropertyRef Name="legajo" />
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="legajo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="UniEncuestaModelStoreContainer">
+          <EntitySet Name="uniEncuestaPopup" EntityType="Self.uniEncuestaPopup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uniEncuestaPopupPregunta" EntityType="Self.uniEncuestaPopupPregunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uniEncuestaPopupRespuestaAlumno" EntityType="Self.uniEncuestaPopupRespuestaAlumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uniEncuestaPreguntaTipo" EntityType="Self.uniEncuestaPreguntaTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vUniAlumnosUsername" EntityType="Self.vUniAlumnosUsername" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vUniAlumnosUsername].[legajo] AS [legajo], 
+    [vUniAlumnosUsername].[Username] AS [Username]
+    FROM [dbo].[vUniAlumnosUsername] AS [vUniAlumnosUsername]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniEncuestaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="uniEncuestaPopup">
+          <Key>
+            <PropertyRef Name="IdEncuesta" />
+          </Key>
+          <Property Name="IdEncuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="uniEncuestaPopupPregunta">
+          <Key>
+            <PropertyRef Name="IdPregunta" />
+          </Key>
+          <Property Name="IdEncuesta" Type="Int32" Nullable="false" />
+          <Property Name="IdPregunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoPregunta" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="uniEncuestaPreguntaTipo">
+          <Key>
+            <PropertyRef Name="idTipoEncuestaPregunta" />
+          </Key>
+          <Property Name="idTipoEncuestaPregunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="UniEncuesta_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="uniEncuestaPopup" EntityType="Self.uniEncuestaPopup" />
+          <EntitySet Name="uniEncuestaPopupPregunta" EntityType="Self.uniEncuestaPopupPregunta" />
+          <EntitySet Name="uniEncuestaPreguntaTipo" EntityType="Self.uniEncuestaPreguntaTipo" />
+          <EntitySet Name="vUniAlumnosUsername" EntityType="UniEncuestaModel.vUniAlumnosUsername" />
+          <EntitySet Name="uniEncuestaPopupRespuestaAlumno" EntityType="UniEncuestaModel.uniEncuestaPopupRespuestaAlumno" />
+        </EntityContainer>
+        <EntityType Name="vUniAlumnosUsername">
+          <Key>
+            <PropertyRef Name="legajo" />
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="legajo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="uniEncuestaPopupRespuestaAlumno">
+          <Key>
+            <PropertyRef Name="IdEncuesta" />
+            <PropertyRef Name="IdPregunta" />
+            <PropertyRef Name="Legajo" />
+          </Key>
+          <Property Name="IdEncuesta" Type="Int32" Nullable="false" />
+          <Property Name="IdPregunta" Type="Int32" Nullable="false" />
+          <Property Name="Legajo" Type="Int32" Nullable="false" />
+          <Property Name="RespuestaNumerica" Type="Int32" />
+          <Property Name="RespuestaTexto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UniEncuestaModelStoreContainer" CdmEntityContainer="UniEncuesta_Entities">
+          <EntitySetMapping Name="uniEncuestaPopup">
+            <EntityTypeMapping TypeName="UniEncuestaModel.uniEncuestaPopup">
+              <MappingFragment StoreEntitySet="uniEncuestaPopup">
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uniEncuestaPopupPregunta">
+            <EntityTypeMapping TypeName="UniEncuestaModel.uniEncuestaPopupPregunta">
+              <MappingFragment StoreEntitySet="uniEncuestaPopupPregunta">
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="IdTipoPregunta" ColumnName="IdTipoPregunta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uniEncuestaPreguntaTipo">
+            <EntityTypeMapping TypeName="UniEncuestaModel.uniEncuestaPreguntaTipo">
+              <MappingFragment StoreEntitySet="uniEncuestaPreguntaTipo">
+                <ScalarProperty Name="idTipoEncuestaPregunta" ColumnName="idTipoEncuestaPregunta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vUniAlumnosUsername">
+            <EntityTypeMapping TypeName="UniEncuestaModel.vUniAlumnosUsername">
+              <MappingFragment StoreEntitySet="vUniAlumnosUsername">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="legajo" ColumnName="legajo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uniEncuestaPopupRespuestaAlumno">
+            <EntityTypeMapping TypeName="UniEncuestaModel.uniEncuestaPopupRespuestaAlumno">
+              <MappingFragment StoreEntitySet="uniEncuestaPopupRespuestaAlumno">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="RespuestaTexto" ColumnName="RespuestaTexto" />
+                <ScalarProperty Name="RespuestaNumerica" ColumnName="RespuestaNumerica" />
+                <ScalarProperty Name="Legajo" ColumnName="Legajo" />
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
