@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EncuestasApi_DATA;
+using System.Data;
+using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace EncuestasApi_Service
 {
@@ -125,6 +128,14 @@ namespace EncuestasApi_Service
                 }
             }
             return true;
+        }
+
+        public static DataSet GetEncuestaDataSet()
+        {
+            string jsonstring = "{\"Table\": [{\"DisplayVoucherNumber\": \"A101239Z\",\"ActualDate\": \"08/07/2013\",\"AccountName\": \"shyamal\",\"Pcs\": \"50\",\"Weight\": \"500.000\"}],\"Table1\": [{\"DisplayVoucherNumber\": \"R101249B\",\"ActualDate\": \"11/07/2013\",\"AccountName\": \"vipul\",\"NetWeight\": \"90.000\",\"Weight\": \"80.000\",\"Difference\": \"10.000\"},{\"DisplayVoucherNumber\": \"R101249B\",\"ActualDate\": \"11/07/2013\",\"AccountName\": \"vipul\",\"NetWeight\": \"500.000\",\"Weight\": \"100.000\",\"Difference\": \"400.000\"}]}";
+            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(jsonstring);
+            
+            return dataSet;
         }
     }
 }

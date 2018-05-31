@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UniEncuestaService.cs" />
+    <Compile Include="UtilityService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EncuestasApi_DATA\EncuestasApi_Data.csproj">
@@ -51,6 +56,9 @@
       <Project>{820ae670-02ee-4910-8715-03d78a6e0c83}</Project>
       <Name>EncuestasApi_Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,15 +45,13 @@ namespace EncuestasApi.Controllers
         }
 
         [Route("SendEmail")]
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public void AlumnoRespuestaExists(string username)
+        public void SendMail()
         {
-            /*
             DataSet dataSet = UniEncuestaService.GetEncuestaDataSet();
-            string htmlString = getHtml(dataSet);
-            SendAutomatedEmail(htmlString, "email@domain.com");
-            */
+            string htmlString = UtilityService.GetHtmlStringFromDataset(dataSet);
+            MailingService.SendAutomatedEmail(htmlString, "gchervet@kennedy.edu.ar");
         }
     }
 }
