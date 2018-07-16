@@ -12,6 +12,8 @@ namespace EncuestasApi_DATA
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class UniEncuesta_Entities : DbContext
     {
@@ -30,5 +32,11 @@ namespace EncuestasApi_DATA
         public virtual DbSet<uniEncuestaPreguntaTipo> uniEncuestaPreguntaTipo { get; set; }
         public virtual DbSet<vUniAlumnosUsername> vUniAlumnosUsername { get; set; }
         public virtual DbSet<uniEncuestaPopupRespuestaAlumno> uniEncuestaPopupRespuestaAlumno { get; set; }
+        public virtual DbSet<uniEncuestaRegistroAlumnos> uniEncuestaRegistroAlumnos { get; set; }
+    
+        public virtual ObjectResult<sp_get_uni_encuesta_registro_alumnos_Result> sp_get_uni_encuesta_registro_alumnos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_uni_encuesta_registro_alumnos_Result>("sp_get_uni_encuesta_registro_alumnos");
+        }
     }
 }

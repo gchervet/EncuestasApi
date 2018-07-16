@@ -50,6 +50,9 @@
   <ItemGroup>
     <Compile Include="DAL\UniEncuestasDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_get_uni_encuesta_registro_alumnos_Result.cs">
+      <DependentUpon>uniEncuesta_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="uniEncuestaPopup.cs">
       <DependentUpon>uniEncuesta_Model.tt</DependentUpon>
     </Compile>
@@ -60,6 +63,9 @@
       <DependentUpon>uniEncuesta_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="uniEncuestaPreguntaTipo.cs">
+      <DependentUpon>uniEncuesta_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="uniEncuestaRegistroAlumnos.cs">
       <DependentUpon>uniEncuesta_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="uniEncuesta_Model.Context.cs">

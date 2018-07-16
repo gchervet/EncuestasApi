@@ -14,7 +14,7 @@ namespace EncuestasApi_Service
         {
             try
             {
-                MailMessage message = new MailMessage("gchervet@kennedy.edu.ar", "gchervet@kennedy.edu.ar");
+                MailMessage message = new MailMessage("no-responder@kennedy.edu.ar", "gchervet@kennedy.edu.ar");
                 message.IsBodyHtml = true;
                 message.Body = htmlString;
                 message.Subject = "Test Email";
@@ -22,7 +22,8 @@ namespace EncuestasApi_Service
                 SmtpClient client = new SmtpClient();
                 client.Host = "svrservicios01";
                 client.Port = 25;
-                var AuthenticationDetails = new NetworkCredential("gchervet@kennedy.edu.ar", "741852852");
+
+                var AuthenticationDetails = new NetworkCredential("adlive@kennedy.edu.ar", "+adlive-");
                 client.Credentials = AuthenticationDetails;
                 client.Send(message);
             }

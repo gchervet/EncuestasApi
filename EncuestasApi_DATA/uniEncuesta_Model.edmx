@@ -43,6 +43,17 @@
           <Property Name="idTipoEncuestaPregunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="uniEncuestaRegistroAlumnos">
+          <Key>
+            <PropertyRef Name="IdEncuestaRegistroAlumno" />
+          </Key>
+          <Property Name="IdEncuestaRegistroAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AlumnoDNI" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="Legajo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dev_Uni.dbo.vUniAlumnosUsername' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vUniAlumnosUsername">
@@ -53,11 +64,13 @@ warning 6002: The table/view 'dev_Uni.dbo.vUniAlumnosUsername' does not have a p
           <Property Name="legajo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Function Name="sp_get_uni_encuesta_registro_alumnos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="UniEncuestaModelStoreContainer">
           <EntitySet Name="uniEncuestaPopup" EntityType="Self.uniEncuestaPopup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="uniEncuestaPopupPregunta" EntityType="Self.uniEncuestaPopupPregunta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="uniEncuestaPopupRespuestaAlumno" EntityType="Self.uniEncuestaPopupRespuestaAlumno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="uniEncuestaPreguntaTipo" EntityType="Self.uniEncuestaPreguntaTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uniEncuestaRegistroAlumnos" EntityType="Self.uniEncuestaRegistroAlumnos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vUniAlumnosUsername" EntityType="Self.vUniAlumnosUsername" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vUniAlumnosUsername].[legajo] AS [legajo], 
@@ -100,6 +113,8 @@ warning 6002: The table/view 'dev_Uni.dbo.vUniAlumnosUsername' does not have a p
           <EntitySet Name="uniEncuestaPreguntaTipo" EntityType="Self.uniEncuestaPreguntaTipo" />
           <EntitySet Name="vUniAlumnosUsername" EntityType="UniEncuestaModel.vUniAlumnosUsername" />
           <EntitySet Name="uniEncuestaPopupRespuestaAlumno" EntityType="UniEncuestaModel.uniEncuestaPopupRespuestaAlumno" />
+          <FunctionImport Name="sp_get_uni_encuesta_registro_alumnos" ReturnType="Collection(UniEncuestaModel.sp_get_uni_encuesta_registro_alumnos_Result)" />
+          <EntitySet Name="uniEncuestaRegistroAlumnos" EntityType="UniEncuestaModel.uniEncuestaRegistroAlumnos" />
         </EntityContainer>
         <EntityType Name="vUniAlumnosUsername">
           <Key>
@@ -122,6 +137,26 @@ warning 6002: The table/view 'dev_Uni.dbo.vUniAlumnosUsername' does not have a p
           <Property Name="RespuestaTexto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="uniEncuestaRegistroAlumnos">
+          <Key>
+            <PropertyRef Name="IdEncuestaRegistroAlumno" />
+          </Key>
+          <Property Name="IdEncuestaRegistroAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlumnoDNI" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Legajo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <ComplexType Name="sp_get_uni_encuesta_registro_alumnos_Result">
+          <Property Type="Int32" Name="LegajoProvisorio" Nullable="false" />
+          <Property Type="Int32" Name="LegajoDefinitivo" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Apellido" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="ID" Nullable="true" Precision="9" Scale="0" />
+          <Property Type="String" Name="Modalidad" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Carrera" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -173,6 +208,31 @@ warning 6002: The table/view 'dev_Uni.dbo.vUniAlumnosUsername' does not have a p
                 <ScalarProperty Name="Legajo" ColumnName="Legajo" />
                 <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
                 <ScalarProperty Name="IdEncuesta" ColumnName="IdEncuesta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_get_uni_encuesta_registro_alumnos" FunctionName="UniEncuestaModel.Store.sp_get_uni_encuesta_registro_alumnos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniEncuestaModel.sp_get_uni_encuesta_registro_alumnos_Result">
+                <ScalarProperty Name="LegajoProvisorio" ColumnName="LegajoProvisorio" />
+                <ScalarProperty Name="LegajoDefinitivo" ColumnName="LegajoDefinitivo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Modalidad" ColumnName="Modalidad" />
+                <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="uniEncuestaRegistroAlumnos">
+            <EntityTypeMapping TypeName="UniEncuestaModel.uniEncuestaRegistroAlumnos">
+              <MappingFragment StoreEntitySet="uniEncuestaRegistroAlumnos">
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Legajo" ColumnName="Legajo" />
+                <ScalarProperty Name="AlumnoDNI" ColumnName="AlumnoDNI" />
+                <ScalarProperty Name="IdEncuestaRegistroAlumno" ColumnName="IdEncuestaRegistroAlumno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

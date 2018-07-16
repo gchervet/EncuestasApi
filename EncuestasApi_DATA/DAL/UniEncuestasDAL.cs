@@ -86,5 +86,50 @@ namespace EncuestasApi_DATA.DAL
                 return context.uniEncuestaPreguntaTipo.Where(x => x.idTipoEncuestaPregunta == idTipoPregunta).FirstOrDefault();
             }
         }
+
+        public static List<sp_get_uni_encuesta_registro_alumnos_Result> GetRegistroAlumno()
+        {
+            using (var context = new UniEncuesta_Entities())
+            {
+                return context.sp_get_uni_encuesta_registro_alumnos().ToList();
+            }
+        }
+
+        public static void GenerarRegistro(List<sp_get_uni_encuesta_registro_alumnos_Result> sp_get_uni_encuesta_registro_alumnos_Result)
+        {
+            using (var context = new UniEncuesta_Entities())
+            {
+                foreach (sp_get_uni_encuesta_registro_alumnos_Result sp_get_uni_encuesta_registro_alumnos in sp_get_uni_encuesta_registro_alumnos_Result)
+                {
+                    uniEncuestaRegistroAlumnos uniEncuestaRegistroAlumnos = new uniEncuestaRegistroAlumnos();
+                    uniEncuestaRegistroAlumnos.Legajo = sp_get_uni_encuesta_registro_alumnos.LegajoDefinitivo.ToString();
+                    uniEncuestaRegistroAlumnos.Nombre = sp_get_uni_encuesta_registro_alumnos.Nombre.ToString();
+                    uniEncuestaRegistroAlumnos.Apellido = sp_get_uni_encuesta_registro_alumnos.Apellido.ToString();
+                    uniEncuestaRegistroAlumnos.Modalidad = sp_get_uni_encuesta_registro_alumnos.Modalidad.ToString();
+                    uniEncuestaRegistroAlumnos.Carrera = sp_get_uni_encuesta_registro_alumnos.Carrera.ToString();
+                    uniEncuestaRegistroAlumnos.FechaIngreso = DateTime.Now;
+
+                    if (sp_get_uni_encuesta_registro_alumnos.ID.HasValue)
+                    {
+                        uniEncuestaRegistroAlumnos.AlumnoDNI = sp_get_uni_encuesta_registro_alumnos.ID.Value.ToString();
+                    }
+                    else
+                    {
+                        uniEncuestaRegistroAlumnos.AlumnoDNI = string.Empty;
+                    }
+
+                    context.uniEncuestaRegistroAlumnos.Add(uniEncuestaRegistroAlumnos);
+
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch(Exception e)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
